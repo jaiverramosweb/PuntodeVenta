@@ -10,4 +10,9 @@ class Provider extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'email', 'ruc', 'addres', 'photo'];
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 }
