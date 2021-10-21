@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Purchase\StoreRequest;
+use App\Http\Requests\Purchase\UpdateRequest;
+use App\Models\Provider;
 use App\Models\Purchase;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PurchaseController extends Controller
@@ -14,7 +18,9 @@ class PurchaseController extends Controller
      */
     public function index()
     {
-        //
+        $purchases = Purchase::all();
+
+        return view('admin.purchases.index', compact('purchase'));
     }
 
     /**
@@ -24,7 +30,10 @@ class PurchaseController extends Controller
      */
     public function create()
     {
-        //
+        $users = User::all();
+        $providers = Provider::all();
+
+        return view('admin.purchases.create', compact('users', 'providers'));
     }
 
     /**
@@ -33,9 +42,21 @@ class PurchaseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        $purchase = Purchase::create($request->all());
+
+        foreach ($request->product->id as $key => $value) {
+            $results[] = array(
+                    "product_id" => $request->product_id[$key], 
+                    "quantity" => $request->quantity[$key],
+                    "price" => $request->price[$key]
+                );
+        }
+
+        $purchase->purchaseDetails()->createMany($results);
+
+        return redirect()->route('purchases.index');
     }
 
     /**
@@ -46,7 +67,7 @@ class PurchaseController extends Controller
      */
     public function show(Purchase $purchase)
     {
-        //
+        return view('admin.purchases.show', compact('purchase'));
     }
 
     /**
@@ -57,7 +78,7 @@ class PurchaseController extends Controller
      */
     public function edit(Purchase $purchase)
     {
-        //
+        return view('admin.purchases.edit', compact('purchase'));
     }
 
     /**
@@ -67,7 +88,7 @@ class PurchaseController extends Controller
      * @param  \App\Models\Purchase  $purchase
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Purchase $purchase)
+    public function update(UpdateRequest $request, Purchase $purchase)
     {
         //
     }
