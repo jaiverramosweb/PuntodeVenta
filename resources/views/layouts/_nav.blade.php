@@ -21,12 +21,21 @@
           <span class="menu-title">Dashboard</span>
         </a>
       </li>
+
       <li class="nav-item">
-        <a class="nav-link" href="pages/widgets.html">
+        <a class="nav-link" href="{{ route('categories.index') }}">
           <i class="fa fa-puzzle-piece menu-icon"></i>
-          <span class="menu-title">Widgets</span>
+          <span class="menu-title">Cregorias</span>
         </a>
       </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('providers.index') }}">
+          <i class="fa fa-puzzle-piece menu-icon"></i>
+          <span class="menu-title">Proveedores</span>
+        </a>
+      </li>
+
       <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#page-layouts" aria-expanded="false" aria-controls="page-layouts">
           <i class="fab fa-trello menu-icon"></i>

@@ -10,16 +10,6 @@
 </li> --}}
 @endsection
 
-@section('styles')
-    <style type="text/css">
-        .unstyled-button {
-            border: none;
-            padding: 0;
-            background: none
-        }
-    </style>
-@endsection
-
 @section('content')
     <div class="content-wrapper">
         <div class="page-header">
@@ -68,17 +58,17 @@
                                             <td>{{ $category->name }}</td>
                                             <td>{{ $category->description }}</td>
                                             <td>
-                                                {!! Form::open(['route' => ['categories.destroy',$category], 'method' => 'DELETE']) !!}
+                                                {{-- {!! Form::open(['route' => 'categories.delete',$category], 'method' => 'DELETE') !!}
 
                                                     <a href="{{ route('categories.edit', $category) }}" title="Editar" class="jsgrid-button jsgrid-edit-button">
                                                         <i class="far fa-edit"></i>
                                                     </a>
 
-                                                    <button type="submit" title="Eliminar" class="jsgrid-button jsgrid-edit-button unstyled-button">
-                                                        <i class="far fa-trash-alt"></i>
-                                                    </button>
+                                                    <a href="{{ route('categories.delete', $category) }}" type="submit" title="Eliminar" class="jsgrid-button jsgrid-edit-button">
+                                                        <i class="far fa-trash-all"></i>
+                                                    </a>
 
-                                                {!! Form::close() !!}
+                                                {!! Form::close() !!} --}}
                                             </td>
                                         </tr>
                                     @endforeach

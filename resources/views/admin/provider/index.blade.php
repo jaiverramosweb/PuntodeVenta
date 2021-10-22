@@ -1,11 +1,11 @@
 @extends('layouts.admin')
 
-@section('title', 'Gestion de Categorias')
+@section('title', 'Gestion de Proveedores')
     
 @section('create')
 {{-- <li class="nav-item d-none d-lg-flex">
-    <a class="nav-link" href="{{ route('categories.create') }}">
-        <span class="btn btn-primary">+ Crear Categoria</span>
+    <a class="nav-link" href="{{ route('providers.create') }}">
+        <span class="btn btn-primary">+ Crear Proveedor</span>
     </a>
 </li> --}}
 @endsection
@@ -24,12 +24,12 @@
     <div class="content-wrapper">
         <div class="page-header">
             <h3 class="page-title">
-                Gestion de Categorias
+                Gestion de Proveedores
             </h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Panel Administrador</a></li>
-                    <li class="breadcrumb-item active">Categoria</li>
+                    <li class="breadcrumb-item active">Proveedor</li>
                 </ol>
             </nav>
         </div>
@@ -40,13 +40,13 @@
                     <div class="card-body">
 
                         <div class="d-flex justify-content-between">
-                            <h4 class="card-title">Categorias</h4>
+                            <h4 class="card-title">Proveedores</h4>
                             <div class="btn-group">
                                 <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-ellipsis-v"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a href="{{ route('categories.create') }}" class="dropdown-item">Agregar</a>
+                                    <a href="{{ route('providers.create') }}" class="dropdown-item">Agregar</a>
                                 </div>
                             </div>
                         </div>
@@ -57,20 +57,26 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>Nombre</th>
-                                        <th>Descripcion</th>
+                                        <th>Correo</th>
+                                        <th>Ruc</th>
+                                        <th>Dirección</th>
+                                        <th>Telefono</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($categories as $category)
+                                    @foreach ($providers as $provider)
                                         <tr>
-                                            <th scope="row">{{ $category->id }}</th>
-                                            <td>{{ $category->name }}</td>
-                                            <td>{{ $category->description }}</td>
+                                            <th scope="row">{{ $provider->id }}</th>
+                                            <td>{{ $provider->name }}</td>
+                                            <td>{{ $provider->email }}</td>
+                                            <td>{{ $provider->ruc }}</td>
+                                            <td>{{ $provider->addres }}</td>
+                                            <td>{{ $provider->photo }}</td>
                                             <td>
-                                                {!! Form::open(['route' => ['categories.destroy',$category], 'method' => 'DELETE']) !!}
+                                                {!! Form::open(['route' => ['providers.destroy',$provider], 'method' => 'DELETE']) !!}
 
-                                                    <a href="{{ route('categories.edit', $category) }}" title="Editar" class="jsgrid-button jsgrid-edit-button">
+                                                    <a href="{{ route('providers.edit', $provider) }}" title="Editar" class="jsgrid-button jsgrid-edit-button">
                                                         <i class="far fa-edit"></i>
                                                     </a>
 
