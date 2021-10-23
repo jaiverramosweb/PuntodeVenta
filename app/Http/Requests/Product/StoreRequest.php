@@ -26,9 +26,7 @@ class StoreRequest extends FormRequest
         return [
             'name' => 'required|unique:products', 
             'image' => 'nullable|image', 
-            'price' => 'required', 
-            'category_id' => 'integer|required|exists:App\Models\Category,id', 
-            'provider_id' => 'integer|required|exists:App\Models\Provider,id'
+            'price' => 'required'
         ];
     }
 
@@ -39,14 +37,6 @@ class StoreRequest extends FormRequest
             'name.unique' => 'El nombre ya existe..',
             'image.image' => 'debe se der un formato de imagen..',
             'price.required' => 'El Precio es requirido..',
-
-            'category_id.integer' => 'Debe de ser un numero..',
-            'category_id.required' => 'La Categoria es requirida..',
-            'category_id.exists' => 'La categoria no existe..',
-            
-            'provider_id.integer' => 'Debe de ser un numero..',
-            'provider_id.required' => 'La provedor es requirido..',
-            'provider_id.exists' => 'La provedor no existe..',
         ];
     }
 }

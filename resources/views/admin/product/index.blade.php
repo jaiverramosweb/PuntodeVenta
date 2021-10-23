@@ -1,11 +1,11 @@
 @extends('layouts.admin')
 
-@section('title', 'Gestion de Proveedores')
+@section('title', 'Gestion de Producto')
     
 @section('create')
 {{-- <li class="nav-item d-none d-lg-flex">
-    <a class="nav-link" href="{{ route('providers.create') }}">
-        <span class="btn btn-primary">+ Crear Proveedor</span>
+    <a class="nav-link" href="{{ route('products.create') }}">
+        <span class="btn btn-primary">+ Crear Producto</span>
     </a>
 </li> --}}
 @endsection
@@ -24,12 +24,12 @@
     <div class="content-wrapper">
         <div class="page-header">
             <h3 class="page-title">
-                Gestion de Proveedores
+                Gestion de Producto
             </h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Panel Administrador</a></li>
-                    <li class="breadcrumb-item active">Proveedor</li>
+                    <li class="breadcrumb-item active">Producto</li>
                 </ol>
             </nav>
         </div>
@@ -40,13 +40,13 @@
                     <div class="card-body">
 
                         <div class="d-flex justify-content-between">
-                            <h4 class="card-title">Proveedores</h4>
+                            <h4 class="card-title">Producto</h4>
                             <div class="btn-group">
                                 <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-ellipsis-v"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a href="{{ route('providers.create') }}" class="dropdown-item">Agregar</a>
+                                    <a href="{{ route('products.create') }}" class="dropdown-item">Agregar</a>
                                 </div>
                             </div>
                         </div>
@@ -57,28 +57,26 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>Nombre</th>
-                                        <th>Correo</th>
-                                        <th>Ruc</th>
-                                        <th>Dirección</th>
-                                        <th>Telefono</th>
+                                        <th>Stock</th>
+                                        <th>Estado</th>
+                                        <th>Categoria</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($providers as $provider)
+                                    @foreach ($products as $product)
                                         <tr>
-                                            <th scope="row">{{ $provider->id }}</th>
+                                            <th scope="row">{{ $product->id }}</th>
                                             <td>
-                                                <a href="{{ route('providers.show', $provider) }}">{{ $provider->name }}</a>
+                                                <a href="{{ route('products.show', $product) }}">{{ $product->name }}</a>
                                             </td>
-                                            <td>{{ $provider->email }}</td>
-                                            <td>{{ $provider->ruc }}</td>
-                                            <td>{{ $provider->addres }}</td>
-                                            <td>{{ $provider->photo }}</td>
+                                            <td>{{ $product->stock }}</td>
+                                            <td>{{ $product->status }}</td>
+                                            <td>{{ $product->category->name }}</td>
                                             <td>
-                                                {!! Form::open(['route' => ['providers.destroy',$provider], 'method' => 'DELETE']) !!}
+                                                {!! Form::open(['route' => ['products.destroy',$product], 'method' => 'DELETE']) !!}
 
-                                                    <a href="{{ route('providers.edit', $provider) }}" title="Editar" class="jsgrid-button jsgrid-edit-button">
+                                                    <a href="{{ route('products.edit', $product) }}" title="Editar" class="jsgrid-button jsgrid-edit-button">
                                                         <i class="far fa-edit"></i>
                                                     </a>
 

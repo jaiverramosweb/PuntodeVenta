@@ -52,7 +52,7 @@ class ProviderController extends Controller
      */
     public function show(Provider $provider)
     {
-        return view('admin.provider.show', compact('provider'));
+        return view('admin.provider.show');
     }
 
     /**

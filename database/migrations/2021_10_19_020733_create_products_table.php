@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
 
             $table->string('code')->unique()->nullable();
             $table->string('name')->unique();
-            $table->integer('stock')->nullable();
+            $table->integer('stock')->default(0);
             $table->string('image')->nullable();
             $table->decimal('price',12,2);
             $table->enum('status', ['ACTIVE', 'DEACTIVATED'])->default('ACTIVE');
