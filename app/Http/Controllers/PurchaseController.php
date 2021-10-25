@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Purchase\StoreRequest;
 use App\Http\Requests\Purchase\UpdateRequest;
+use App\Models\Product;
 use App\Models\Provider;
 use App\Models\Purchase;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PurchaseController extends Controller
@@ -20,7 +22,7 @@ class PurchaseController extends Controller
     {
         $purchases = Purchase::all();
 
-        return view('admin.purchases.index', compact('purchase'));
+        return view('admin.purchase.index', compact('purchases'));
     }
 
     /**
@@ -30,10 +32,10 @@ class PurchaseController extends Controller
      */
     public function create()
     {
-        $users = User::all();
         $providers = Provider::all();
+        $products = Product::all();
 
-        return view('admin.purchases.create', compact('users', 'providers'));
+        return view('admin.purchase.create', compact('products', 'providers'));
     }
 
     /**
@@ -44,9 +46,12 @@ class PurchaseController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $purchase = Purchase::create($request->all());
+        $purchase = Purchase::create($request->all() + [
+            'user_id' => \Auth::user()->id,
+            'purchase_date' => Carbon::now('America/Bogota')
+        ]);
 
-        foreach ($request->product->id as $key => $value) {
+        foreach ($request->product_id as $key => $value) {
             $results[] = array(
                     "product_id" => $request->product_id[$key], 
                     "quantity" => $request->quantity[$key],
@@ -67,7 +72,15 @@ class PurchaseController extends Controller
      */
     public function show(Purchase $purchase)
     {
-        return view('admin.purchases.show', compact('purchase'));
+        $purchaseDetails = $purchase->purchaseDetails;
+
+        $subtotal = 0;
+
+        foreach ($purchaseDetails as $purchaseDetail) {
+            $subtotal += $purchaseDetail->quantity * $purchaseDetail->price;
+        }
+
+        return view('admin.purchase.show', compact('purchase', 'purchaseDetails', 'subtotal'));
     }
 
     /**
@@ -78,7 +91,7 @@ class PurchaseController extends Controller
      */
     public function edit(Purchase $purchase)
     {
-        return view('admin.purchases.edit', compact('purchase'));
+        return view('admin.purchase.edit', compact('purchase'));
     }
 
     /**
