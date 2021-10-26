@@ -10,6 +10,7 @@ use App\Models\Purchase;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\PDF;
 use Illuminate\Support\Facades\Auth;
 
 class PurchaseController extends Controller
@@ -126,21 +127,6 @@ class PurchaseController extends Controller
         //
     }
 
-    /* public function pdf(Purchase $purchase)
-    {
-        $purchaseDetails = $purchase->purchaseDetails;
-
-        $subtotal = 0;
-
-        foreach ($purchaseDetails as $purchaseDetail) {
-            $subtotal += $purchaseDetail->quantity * $purchaseDetail->price;
-        }
-
-        $pdf = PDF::loadView('admin.purchases.pdf', compact('purchase', 'purchaseDetails', 'subtotal'));
-
-        return $pdf->stream('ReporteDeCompra_'.$purchase->id.'.pdf');
-    } */
-
     public function upload(Request $request, Purchase $purchase)
     {
 
@@ -154,5 +140,20 @@ class PurchaseController extends Controller
             $purchase->update(['status' => 'VALID']);
         }
         return redirect()->back();
+    }
+
+    public function pdf(Purchase $purchase)
+    {
+        $purchaseDetails = $purchase->purchaseDetails;
+
+        $subtotal = 0;
+
+        foreach ($purchaseDetails as $purchaseDetail) {
+            $subtotal += $purchaseDetail->quantity * $purchaseDetail->price;
+        }
+
+        $pdf = PDF::loadView('admin.purchase.pdf', compact('purchase', 'purchaseDetails', 'subtotal'));
+
+        return $pdf->stream('ReporteDeCompra_'.$purchase->id.'.pdf');
     }
 }

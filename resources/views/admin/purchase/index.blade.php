@@ -92,7 +92,7 @@
                                                 {!! Form::close() !!} --}}
 
                                                 <a href="{{ route('purchases.show', $purchase) }}" class="jsgrid-button" title="ver"><i class="far fa-eye"></i></a>
-                                                <a href="#" class="jsgrid-button" title="pdf"><i class="far fa-file-pdf"></i></a>
+                                                <a href="{{ route('purchases.pdf', $purchase) }}" class="jsgrid-button" title="pdf"><i class="far fa-file-pdf"></i></a>
 		          						        <a href="#" class="jsgrid-button" title="imprimir"><i class="fas fa-print"></i></a>
                                             </td>
                                         </tr>
