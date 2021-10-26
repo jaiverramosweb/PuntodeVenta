@@ -10,9 +10,15 @@ use App\Models\Purchase;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PurchaseController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -47,11 +53,14 @@ class PurchaseController extends Controller
     public function store(StoreRequest $request)
     {
         $purchase = Purchase::create($request->all() + [
-            'user_id' => \Auth::user()->id,
+            'user_id' => Auth::user()->id,
             'purchase_date' => Carbon::now('America/Bogota')
-        ]);
+        ]);        
 
-        foreach ($request->product_id as $key => $value) {
+        foreach ($request->product_id as $key => $id) {
+
+            $purchase->updated_stock($request->product_id[$key], $request->quantity[$key]);
+
             $results[] = array(
                     "product_id" => $request->product_id[$key], 
                     "quantity" => $request->quantity[$key],
@@ -115,5 +124,35 @@ class PurchaseController extends Controller
     public function destroy(Purchase $purchase)
     {
         //
+    }
+
+    /* public function pdf(Purchase $purchase)
+    {
+        $purchaseDetails = $purchase->purchaseDetails;
+
+        $subtotal = 0;
+
+        foreach ($purchaseDetails as $purchaseDetail) {
+            $subtotal += $purchaseDetail->quantity * $purchaseDetail->price;
+        }
+
+        $pdf = PDF::loadView('admin.purchases.pdf', compact('purchase', 'purchaseDetails', 'subtotal'));
+
+        return $pdf->stream('ReporteDeCompra_'.$purchase->id.'.pdf');
+    } */
+
+    public function upload(Request $request, Purchase $purchase)
+    {
+
+    }
+
+    public function change_status(Purchase $purchase)
+    {
+        if ($purchase->status = 'VALID') {
+            $purchase->update(['status' => 'CANCELED']);
+        } else {
+            $purchase->update(['status' => 'VALID']);
+        }
+        return redirect()->back();
     }
 }

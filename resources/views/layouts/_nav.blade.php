@@ -58,6 +58,13 @@
       </li>
 
       <li class="nav-item">
+        <a class="nav-link" href="{{ route('sales.index') }}">
+          <i class="fa fa-puzzle-piece menu-icon"></i>
+          <span class="menu-title">Ventas</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#page-layouts" aria-expanded="false" aria-controls="page-layouts">
           <i class="fab fa-trello menu-icon"></i>
           <span class="menu-title">Page Layouts</span>

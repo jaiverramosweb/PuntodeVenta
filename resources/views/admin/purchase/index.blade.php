@@ -67,7 +67,17 @@
                                             <th scope="row">{{ $purchase->id }}</th>
                                             <td>{{ $purchase->purchase_date }}</td>
                                             <td>{{ $purchase->total }}</td>
-                                            <td>{{ $purchase->status }}</td>
+                                            <td>
+                                                @if ($purchase->status == 'VALID' )
+                                                <a href="{{ route('purchases.change.status', $purchase) }}" class="jsgrid-button btn btn-sm btn-success" title="Activo">
+                                                        Validado <i class="fas fa-check"></i>
+                                                </a>
+                                                @else
+                                                <a href="{{ route('purchases.change.status', $purchase) }}" class="jsgrid-button btn btn-sm btn-danger" title="Desactivado">
+                                                        Desactivado <i class="fas fa-times"></i>
+                                                </a>
+	          						@endif
+                                            </td>
                                             <td>
                                                 {{-- {!! Form::open(['route' => ['purchases.destroy',$purchase], 'method' => 'DELETE']) !!}
 
@@ -82,7 +92,7 @@
                                                 {!! Form::close() !!} --}}
 
                                                 <a href="{{ route('purchases.show', $purchase) }}" class="jsgrid-button" title="ver"><i class="far fa-eye"></i></a>
-                                                <a href="{{ route('purchases.pdf', $purchase) }}" class="jsgrid-button" title="pdf"><i class="far fa-file-pdf"></i></a>
+                                                <a href="#" class="jsgrid-button" title="pdf"><i class="far fa-file-pdf"></i></a>
 		          						        <a href="#" class="jsgrid-button" title="imprimir"><i class="fas fa-print"></i></a>
                                             </td>
                                         </tr>

@@ -3,11 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Models\Product;
 use App\Models\Sale;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SaleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -28,8 +36,9 @@ class SaleController extends Controller
     public function create()
     {
         $clients = Client::all();
-
-        return view('admin.sales.create', compact('sales', 'clients'));
+        $products = Product::all();
+        
+        return view('admin.sales.create', compact('clients', 'products'));
     }
 
     /**
@@ -40,18 +49,26 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
-        $sale = Sale::create($request->all());
+        $user = Auth::user();
 
-        foreach ($request->product_id as $key => $value) {
+        $sale = Sale::create($request->all()+[
+            'user_id' => $user->id,
+            'sale_date' => Carbon::now('America/Bogota')
+        ]);
+
+        foreach ($request->product_id as $key => $product) {
+
+            $sale->updated_stock($request->product_id[$key], $request->quantity[$key]);
+
             $results[] = array(
-                    "product_id" => $request->product_id[$key],
-                    "quantity" => $request->quantity[$key],
-                    "price" => $request->price[$key],
-                    "discount" => $request->discount[$key],
-                );
+                "product_id" => $request->product_id[$key], 
+                "quantity" => $request->quantity[$key], 
+                "price" => $request->price[$key], 
+                "discount" => $request->discount[$key]
+            );
         }
 
-        $sale->saleDetails->createMany($results);
+        $sale->saleDetails()->createMany($results);
 
         return redirect()->route('sales.index');
     }
@@ -64,7 +81,15 @@ class SaleController extends Controller
      */
     public function show(Sale $sale)
     {
-        return view('admin.sales.show', compact('sale'));
+        $saleDetails = $sale->saleDetails;
+
+        $subtotal = 0;
+
+        foreach ($saleDetails as $saleDetail) {
+            $subtotal += $saleDetail->quantity * $saleDetail->price - $saleDetail->quantity * $saleDetail->price * $saleDetail->discount/100;
+        }
+
+        return view('admin.sales.show', compact('sale', 'saleDetails', 'subtotal'));
     }
 
     /**
@@ -99,5 +124,15 @@ class SaleController extends Controller
     public function destroy(Sale $sale)
     {
         //
+    }
+
+    public function change_status(Sale $sale)
+    {
+        if ($sale->status = 'VALID') {
+            $sale->update(['status' => 'CANCELED']);
+        } else {
+            $sale->update(['status' => 'VALID']);
+        }
+        return redirect()->back();
     }
 }

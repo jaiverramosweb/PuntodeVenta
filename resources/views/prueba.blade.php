@@ -1,3 +1,55 @@
+<div class="form-group  col-12 col-md-6">
+    <label for="client_id">Cliente</label>
+    <select class="form-control" name="client_id" id="client_id">
+      <option>== Seleccione el Cliente ==</option>
+      @foreach ($clients as $client)
+          <option value="{{ $client->id }}">{{ $client->name }}</option>        
+      @endforeach
+    </select>
+</div>
+
+<div class="form-group  col-12 col-md-6">
+    <label for="tax">Impuesto</label>
+    <input type="number" name="tax" id="tax" class="form-control">
+</div>
+
+<div class="form-group  col-12 col-md-6">
+    <label for="product_id">Producto</label>
+    <select class="form-control" name="product_id" id="product_id">
+      <option>== Seleccione el Proveedor ==</option>
+      @foreach ($products as $product)
+          <option value="{{ $product->id }}_{{ $product->stock }}_{{ $product->price }}">{{ $product->name }}</option>        
+      @endforeach
+    </select>
+</div>
+
+<div class="form-group  col-12 col-md-6">
+    <label for="stock">Stock</label>
+    <input type="number" name="stock" id="stock" class="form-control" disabled>
+</div>
+
+<div class="form-group  col-12 col-md-6">
+    <label for="quantity">Cantidad</label>
+    <input type="number" name="quantity" id="quantity" class="form-control">
+</div>
+
+<div class="form-group  col-12 col-md-6">
+    <label for="discount">Porcentaje de descuento</label>
+    <input type="number" name="discount" id="discount" class="form-control">
+</div>
+
+<div class="form-group  col-12 col-md-6">
+    <label for="price">Precio</label>
+    <input type="number" name="price" id="price" class="form-control" disabled>
+</div>
+
+
+
+
+
+
+
+
 @extends('layouts.admin')
 
 @section('title', 'Gestion de Categorias')

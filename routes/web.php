@@ -27,8 +27,10 @@ Route::resource('providers', ProviderController::class)->names('providers');
 Route::resource('products', ProductController::class)->names('products');
 
 Route::resource('purchases', PurchaseController::class)->names('purchases');
+Route::post('change_status/purchases/{purchase}', [PurchaseController::class, 'change_status'])->name('purchases.change.status');
 
 Route::resource('sales', SaleController::class)->names('sales');
+Route::post('change_status/sales/{sale}', [PurchaseController::class, 'change_status'])->name('sales.change.status');
 
 Auth::routes();
 

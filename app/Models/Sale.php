@@ -25,4 +25,11 @@ class Sale extends Model
     {
         return $this->hasMany(SaleDetails::class);
     }
+
+    public function updated_stock($id, $quantity)
+    {
+        $product = Product::find($id);
+
+        $product->subtract_stock($quantity);
+    }
 }

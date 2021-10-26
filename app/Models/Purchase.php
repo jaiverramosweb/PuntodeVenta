@@ -25,4 +25,11 @@ class Purchase extends Model
     {
         return $this->hasMany(PurchaseDetails::class);
     }
+
+    public function updated_stock($id, $quantity)
+    {
+        $product = Product::find($id);
+
+        $product->add_stock($quantity);
+    }
 }
