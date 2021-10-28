@@ -67,14 +67,14 @@
       <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#page-layouts" aria-expanded="false" aria-controls="page-layouts">
           <i class="fab fa-trello menu-icon"></i>
-          <span class="menu-title">Page Layouts</span>
+          <span class="menu-title">Usuarios</span>
           <i class="menu-arrow"></i>
         </a>
         <div class="collapse" id="page-layouts">
           <ul class="nav flex-column sub-menu">
-            <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="pages/layout/boxed-layout.html">Boxed</a></li>
-            <li class="nav-item"> <a class="nav-link" href="pages/layout/rtl-layout.html">RTL</a></li>
-            <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="pages/layout/horizontal-menu.html">Horizontal Menu</a></li>
+            <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="{{ route('users.index') }}">Usuario</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('roles.index') }}">Roles</a></li>
+            <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="{{ route('permissions.index') }}">Permisos</a></li>
           </ul>
         </div>
       </li>
