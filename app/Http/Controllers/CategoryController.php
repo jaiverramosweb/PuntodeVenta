@@ -6,9 +6,15 @@ use App\Http\Requests\Category\StoreRequest;
 use App\Http\Requests\Category\UpdateRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class CategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,6 +22,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('category_index'), 403);
         $categories = Category::all();
 
         return view('admin.category.index', compact('categories'));
@@ -28,6 +35,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
+        abort_if(Gate::denies('category_create'), 403);
+
         return view('admin.category.create');
     }
 
@@ -52,6 +61,8 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
+        abort_if(Gate::denies('category_show'), 403);
+
         return view('admin.category.show', compact('category'));
     }
 
@@ -63,6 +74,8 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
+        abort_if(Gate::denies('category_edit'), 403);
+
         return view('admin.category.edit', compact('category'));
     }
 
@@ -88,6 +101,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        abort_if(Gate::denies('category_destroy'), 403);
+
         $category->delete();
 
         return redirect()->route('categories.index');

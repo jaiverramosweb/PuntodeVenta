@@ -21,48 +21,59 @@
           <span class="menu-title">Dashboard</span>
         </a>
       </li>
+      @can('category_index')
+        <li class="nav-item">
+          <a class="nav-link" href="{{ route('categories.index') }}">
+            <i class="fa fa-puzzle-piece menu-icon"></i>
+            <span class="menu-title">Cregorias</span>
+          </a>
+        </li>
+      @endcan
 
-      <li class="nav-item">
-        <a class="nav-link" href="{{ route('categories.index') }}">
-          <i class="fa fa-puzzle-piece menu-icon"></i>
-          <span class="menu-title">Cregorias</span>
-        </a>
-      </li>
+      @can('provider_index')
+        <li class="nav-item">
+          <a class="nav-link" href="{{ route('providers.index') }}">
+            <i class="fa fa-puzzle-piece menu-icon"></i>
+            <span class="menu-title">Proveedores</span>
+          </a>
+        </li>
+      @endcan
 
-      <li class="nav-item">
-        <a class="nav-link" href="{{ route('providers.index') }}">
-          <i class="fa fa-puzzle-piece menu-icon"></i>
-          <span class="menu-title">Proveedores</span>
-        </a>
-      </li>
+      @can('product_index')
+        <li class="nav-item">
+          <a class="nav-link" href="{{ route('products.index') }}">
+            <i class="fa fa-puzzle-piece menu-icon"></i>
+            <span class="menu-title">Producto</span>
+          </a>
+        </li>
+      @endcan
 
-      <li class="nav-item">
-        <a class="nav-link" href="{{ route('products.index') }}">
-          <i class="fa fa-puzzle-piece menu-icon"></i>
-          <span class="menu-title">Producto</span>
-        </a>
-      </li>
-
+      @can('client_index')
       <li class="nav-item">
         <a class="nav-link" href="{{ route('clients.index') }}">
           <i class="fa fa-puzzle-piece menu-icon"></i>
           <span class="menu-title">Clientes</span>
         </a>
       </li>
+      @endcan
 
+      @can('purchase_index')
       <li class="nav-item">
         <a class="nav-link" href="{{ route('purchases.index') }}">
           <i class="fa fa-puzzle-piece menu-icon"></i>
           <span class="menu-title">Compras</span>
         </a>
       </li>
+      @endcan
 
+      @can('sale_index')
       <li class="nav-item">
         <a class="nav-link" href="{{ route('sales.index') }}">
           <i class="fa fa-puzzle-piece menu-icon"></i>
           <span class="menu-title">Ventas</span>
         </a>
       </li>
+      @endcan
 
       <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#page-layouts" aria-expanded="false" aria-controls="page-layouts">
@@ -72,9 +83,17 @@
         </a>
         <div class="collapse" id="page-layouts">
           <ul class="nav flex-column sub-menu">
-            <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="{{ route('users.index') }}">Usuario</a></li>
-            <li class="nav-item"> <a class="nav-link" href="{{ route('roles.index') }}">Roles</a></li>
-            <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="{{ route('permissions.index') }}">Permisos</a></li>
+            @can('user_index')
+              <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="{{ route('users.index') }}">Usuario</a></li>
+            @endcan
+
+            @can('role_index')
+              <li class="nav-item"> <a class="nav-link" href="{{ route('roles.index') }}">Roles</a></li>
+            @endcan
+
+            @can('permissions_index')
+              <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="{{ route('permissions.index') }}">Permisos</a></li>
+            @endcan
           </ul>
         </div>
       </li>

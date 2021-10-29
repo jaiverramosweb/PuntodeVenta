@@ -6,9 +6,14 @@ use App\Http\Requests\Provider\StoreRequest;
 use App\Http\Requests\Provider\UpdateRequest;
 use App\Models\Provider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ProviderController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,6 +21,8 @@ class ProviderController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('provider_index'), 403);
+
         $providers = Provider::all();
 
         return view('admin.provider.index', compact('providers'));
@@ -28,6 +35,8 @@ class ProviderController extends Controller
      */
     public function create()
     {
+        abort_if(Gate::denies('provider_create'), 403);
+
         return view('admin.provider.create');
     }
 
@@ -52,6 +61,8 @@ class ProviderController extends Controller
      */
     public function show(Provider $provider)
     {
+        abort_if(Gate::denies('provider_show'), 403);
+
         return view('admin.provider.show');
     }
 
@@ -63,6 +74,8 @@ class ProviderController extends Controller
      */
     public function edit(Provider $provider)
     {
+        abort_if(Gate::denies('provider_edit'), 403);
+
         return view('admin.provider.edit', compact('provider'));
     }
 
@@ -88,6 +101,8 @@ class ProviderController extends Controller
      */
     public function destroy(Provider $provider)
     {
+        abort_if(Gate::denies('provider_destroy'), 403);
+
         $provider->delete();
 
         return redirect()->route('providers.index');

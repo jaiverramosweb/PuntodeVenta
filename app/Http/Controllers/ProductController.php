@@ -8,10 +8,14 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Provider;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Gate;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -19,6 +23,8 @@ class ProductController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('product_index'), 403);
+
         $products = Product::all();
 
         return view('admin.product.index', compact('products'));
@@ -31,6 +37,8 @@ class ProductController extends Controller
      */
     public function create()
     {
+        abort_if(Gate::denies('product_create'), 403);
+
         $categories = Category::all();
         $providers = Provider::all();
 
@@ -73,6 +81,8 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
+        abort_if(Gate::denies('product_show'), 403);
+
         return view('admin.product.show', compact('product'));
     }
 
@@ -84,6 +94,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
+        abort_if(Gate::denies('product_edit'), 403);
+
         $categories = Category::all();
         $providers = Provider::all();
 
@@ -122,6 +134,8 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        abort_if(Gate::denies('product_destroy'), 403);
+
         $product->delete();
 
         return redirect()->route('products.index');

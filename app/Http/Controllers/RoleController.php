@@ -3,11 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
 class RoleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,6 +20,8 @@ class RoleController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('role_index'), 403);
+        
         $roles = Role::all();
 
         return view('admin.roles.index', compact('roles'));
@@ -27,6 +34,8 @@ class RoleController extends Controller
      */
     public function create()
     {
+        abort_if(Gate::denies('role_create'), 403);
+
         $permissions = Permission::all();
 
         return view('admin.roles.create', compact('permissions'));
@@ -66,6 +75,8 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
+        abort_if(Gate::denies('role_edit'), 403);
+
         $permissions = Permission::all()->pluck('name', 'id');
         $role->load('permissions');
 
@@ -96,6 +107,8 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
+        abort_if(Gate::denies('role_destroy'), 403);
+
         $role->delete();
         
         return redirect()->route('roles.index');

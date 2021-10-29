@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\PDF;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class PurchaseController extends Controller
 {
@@ -27,6 +28,8 @@ class PurchaseController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('purchase_index'), 403);
+        
         $purchases = Purchase::all();
 
         return view('admin.purchase.index', compact('purchases'));
@@ -39,6 +42,8 @@ class PurchaseController extends Controller
      */
     public function create()
     {
+        abort_if(Gate::denies('purchase_create'), 403);
+
         $providers = Provider::all();
         $products = Product::all();
 
@@ -82,6 +87,8 @@ class PurchaseController extends Controller
      */
     public function show(Purchase $purchase)
     {
+        abort_if(Gate::denies('purchase_show'), 403);
+
         $purchaseDetails = $purchase->purchaseDetails;
 
         $subtotal = 0;
@@ -101,6 +108,8 @@ class PurchaseController extends Controller
      */
     public function edit(Purchase $purchase)
     {
+        abort_if(Gate::denies('purchase_edit'), 403);
+
         return view('admin.purchase.edit', compact('purchase'));
     }
 

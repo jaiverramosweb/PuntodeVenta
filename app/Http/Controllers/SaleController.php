@@ -8,6 +8,7 @@ use App\Models\Sale;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class SaleController extends Controller
 {
@@ -23,6 +24,8 @@ class SaleController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('sale_index'), 403);
+
         $sales = Sale::all();
 
         return view('admin.sales.index', compact('sales'));
@@ -35,6 +38,8 @@ class SaleController extends Controller
      */
     public function create()
     {
+        abort_if(Gate::denies('sale_create'), 403);
+
         $clients = Client::all();
         $products = Product::all();
         
@@ -81,6 +86,8 @@ class SaleController extends Controller
      */
     public function show(Sale $sale)
     {
+        abort_if(Gate::denies('sale_show'), 403);
+
         $saleDetails = $sale->saleDetails;
 
         $subtotal = 0;
@@ -100,6 +107,8 @@ class SaleController extends Controller
      */
     public function edit(Sale $sale)
     {
+        abort_if(Gate::denies('sale_edit'), 403);
+
         return view('admin.sales.edit', compact('sale'));
     }
 

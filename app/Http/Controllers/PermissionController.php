@@ -4,10 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Permissions\StoreRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Spatie\Permission\Models\Permission;
 
 class PermissionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,6 +20,8 @@ class PermissionController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('permissions_index'), 403);
+
         $permissions = Permission::all();
 
         return view('admin.permissions.index', compact('permissions'));
@@ -27,6 +34,8 @@ class PermissionController extends Controller
      */
     public function create()
     {
+        abort_if(Gate::denies('permissions_create'), 403);
+
         return view('admin.permissions.create');
     }
 
@@ -62,6 +71,8 @@ class PermissionController extends Controller
      */
     public function edit(Permission $permission)
     {
+        abort_if(Gate::denies('permissions_edit'), 403);
+
         return view('admin.permissions.edit', compact('permission'));
     }
 
@@ -87,6 +98,8 @@ class PermissionController extends Controller
      */
     public function destroy(Permission $permission)
     {
+        abort_if(Gate::denies('permissions_destroy'), 403);
+
         $permission->delete();
 
         return redirect()->route('permissions.index');

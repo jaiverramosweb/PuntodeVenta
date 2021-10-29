@@ -58,6 +58,7 @@
                                         <th>Id</th>
                                         <th>Nombre</th>
                                         <th>Correo Electronico</th>
+                                        <th>Roles</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -67,6 +68,13 @@
                                             <th scope="row">{{ $user->id }}</th>
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
+                                            <td>
+                                                @forelse ($user->roles as $role)
+                                                    <span class="badge badge-info">{{ $role->name }}</span>
+                                                @empty
+                                                    <span class="badge badge-danger">Sin rol asignados</span>
+                                                @endforelse
+                                            </td>
                                             <td>
                                                 {!! Form::open(['route' => ['users.destroy',$user], 'method' => 'DELETE']) !!}
 

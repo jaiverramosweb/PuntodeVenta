@@ -6,9 +6,14 @@ use App\Http\Requests\Client\StoreRequest;
 use App\Http\Requests\Client\UpdateRequest;
 use App\Models\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ClientController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,6 +21,8 @@ class ClientController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('client_index'), 403);
+        
         $clients = Client::all();
 
         return view('admin.client.index', compact('clients'));
@@ -28,6 +35,8 @@ class ClientController extends Controller
      */
     public function create()
     {
+        abort_if(Gate::denies('client_create'), 403);
+
         return view('admin.client.create');
     }
 
@@ -52,6 +61,8 @@ class ClientController extends Controller
      */
     public function show(Client $client)
     {
+        abort_if(Gate::denies('client_show'), 403);
+
         return view('admin.client.show', compact('client'));
     }
 
@@ -63,6 +74,8 @@ class ClientController extends Controller
      */
     public function edit(Client $client)
     {
+        abort_if(Gate::denies('client_edit'), 403);
+
         return view('admin.client.edit', compact('client'));
     }
 
@@ -88,6 +101,8 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
+        abort_if(Gate::denies('client_destroy'), 403);
+
         $client->delete();
 
         return redirect()->route('clients.index');
