@@ -97,6 +97,25 @@
           </ul>
         </div>
       </li>
+
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" href="#page-layouts2" aria-expanded="false" aria-controls="page-layouts2">
+          <i class="fab fa-trello menu-icon"></i>
+          <span class="menu-title">Reportes</span>
+          <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="page-layouts2">
+          <ul class="nav flex-column sub-menu">
+            @can('reports_day')
+              <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="{{ route('reports.day') }}">Dia</a></li>
+            @endcan
+
+            @can('reports_date')
+              <li class="nav-item"> <a class="nav-link" href="{{ route('reports.date') }}">Fecha</a></li>
+            @endcan
+          </ul>
+        </div>
+      </li>
       
       <li class="nav-item">
         <a class="nav-link" href="pages/documentation.html">

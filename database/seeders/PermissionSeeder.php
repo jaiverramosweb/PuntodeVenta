@@ -68,6 +68,10 @@ class PermissionSeeder extends Seeder
             'sale_show',
             'sale_edit',
             'sale_destroy',
+
+            'reports_day',
+            'reports_date',
+            'reports_result',
         ];
 
         foreach ($permissions as $permission) {

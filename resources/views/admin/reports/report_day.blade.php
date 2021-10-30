@@ -69,8 +69,8 @@
 	          			@foreach($sales as $sale)
 	          				<tr>
 	          					<th scope="row">{{ $sale->id }}</th>
-	          					<td>
-	          						{{ $sale->date }}
+	          					<td>									
+	          						{{ date('d-m-Y', strtotime($sale->sale_date)) }}
 	          					</td>
 	          					<td>
 	          						{{ $sale->total }}
@@ -79,17 +79,9 @@
 	          						{{ $sale->status }}
 	          					</td>
 	          					<td style="width: 50px;">
-	          						{!! Form::open(['route' =>['sales.destroy', $sale], 'method' => 'DELETE']) !!}
-
-		          						<a href="{{ route('sales.edit', $sale) }}" class="jsgrid-button jsgrid-edit-button" title="Editar">
-		          							<i class="far fa-edit"></i>
-		          						</a>
-
-		          						<button class="jsgrid-button jsgrid-delete-button unstyled-button" type="submit" title="Eliminar">
-		          							<i class="far fa-trash-alt"></i>
-		          						</button>
-
-	          						{!! Form::close() !!}
+									<a href="{{ route('sales.show', $sale) }}" class="jsgrid-button" title="ver"><i class="far fa-eye"></i></a>
+									<a href="#" class="jsgrid-button" title="pdf"><i class="far fa-file-pdf"></i></a>
+									<a href="#" class="jsgrid-button" title="imprimir"><i class="fas fa-print"></i></a>
 	          					</td>
 	          				</tr>
 	          			@endforeach

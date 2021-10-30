@@ -71,7 +71,17 @@
                                                 <a href="{{ route('products.show', $product) }}">{{ $product->name }}</a>
                                             </td>
                                             <td>{{ $product->stock }}</td>
-                                            <td>{{ $product->status }}</td>
+                                            <td>
+                                                @if ($product->status == 'ACTIVE' )
+                                                    <a href="{{ route('products.change.status', $product) }}" class="jsgrid-button btn btn-sm btn-success" title="Activo">
+                                                            Activo <i class="fas fa-check"></i>
+                                                    </a>
+                                                @else
+                                                    <a href="{{ route('products.change.status', $product) }}" class="jsgrid-button btn btn-sm btn-danger" title="Desactivado">
+                                                            Desactivado <i class="fas fa-times"></i>
+                                                    </a>
+                                                @endif
+                                            </td>
                                             <td>{{ $product->category->name }}</td>
                                             <td>
                                                 {!! Form::open(['route' => ['products.destroy',$product], 'method' => 'DELETE']) !!}

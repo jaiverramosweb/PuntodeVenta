@@ -30,7 +30,7 @@
 	      <div class="card">
 	        <div class="card-body">
 				<div class="d-flex justify-content-between">
-					<h4 class="card-title">Compras</h4>
+					<h4 class="card-title">Ventas</h4>
 
 					<div class="btn-group">
 						  <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -65,7 +65,7 @@
 	          					<th scope="row">{{ $sale->id }}</th>
 
 	          					<td>
-	          						{{ $sale->date }}
+	          						{{ $sale->sale_date }}
 	          					</td>
 
 	          					<td>
