@@ -24,7 +24,7 @@
       @can('category_index')
         <li class="nav-item">
           <a class="nav-link" href="{{ route('categories.index') }}">
-            <i class="fa fa-puzzle-piece menu-icon"></i>
+            <i class="fas fa-tags menu-icon"></i>
             <span class="menu-title">Cregorias</span>
           </a>
         </li>
@@ -33,7 +33,7 @@
       @can('provider_index')
         <li class="nav-item">
           <a class="nav-link" href="{{ route('providers.index') }}">
-            <i class="fa fa-puzzle-piece menu-icon"></i>
+            <i class="fas fa-truck-moving menu-icon"></i>
             <span class="menu-title">Proveedores</span>
           </a>
         </li>
@@ -42,7 +42,7 @@
       @can('product_index')
         <li class="nav-item">
           <a class="nav-link" href="{{ route('products.index') }}">
-            <i class="fa fa-puzzle-piece menu-icon"></i>
+            <i class="fas fa-project-diagram menu-icon"></i>
             <span class="menu-title">Producto</span>
           </a>
         </li>
@@ -51,7 +51,7 @@
       @can('client_index')
       <li class="nav-item">
         <a class="nav-link" href="{{ route('clients.index') }}">
-          <i class="fa fa-puzzle-piece menu-icon"></i>
+          <i class="fa fa-users menu-icon"></i>
           <span class="menu-title">Clientes</span>
         </a>
       </li>
@@ -60,7 +60,7 @@
       @can('purchase_index')
       <li class="nav-item">
         <a class="nav-link" href="{{ route('purchases.index') }}">
-          <i class="fa fa-puzzle-piece menu-icon"></i>
+          <i class="fas fa-cart-plus menu-icon"></i>
           <span class="menu-title">Compras</span>
         </a>
       </li>
@@ -69,7 +69,7 @@
       @can('sale_index')
       <li class="nav-item">
         <a class="nav-link" href="{{ route('sales.index') }}">
-          <i class="fa fa-puzzle-piece menu-icon"></i>
+          <i class="fas fa-shopping-cart menu-icon"></i>
           <span class="menu-title">Ventas</span>
         </a>
       </li>
@@ -77,7 +77,7 @@
 
       <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#page-layouts" aria-expanded="false" aria-controls="page-layouts">
-          <i class="fab fa-trello menu-icon"></i>
+          <i class="fa fa-user-times menu-icon"></i>
           <span class="menu-title">Usuarios</span>
           <i class="menu-arrow"></i>
         </a>
@@ -100,7 +100,8 @@
 
       <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#page-layouts2" aria-expanded="false" aria-controls="page-layouts2">
-          <i class="fab fa-trello menu-icon"></i>
+
+          <i class="fas fa-chart-bar menu-icon"></i>
           <span class="menu-title">Reportes</span>
           <i class="menu-arrow"></i>
         </a>
@@ -117,11 +118,11 @@
         </div>
       </li>
       
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a class="nav-link" href="pages/documentation.html">
           <i class="far fa-file-alt menu-icon"></i>
           <span class="menu-title">Documentation</span>
         </a>
-      </li>
+      </li> --}}
     </ul>
   </nav>
