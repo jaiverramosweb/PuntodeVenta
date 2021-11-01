@@ -65,7 +65,9 @@
                                     @foreach ($purchases as $purchase)
                                         <tr>
                                             <th scope="row">{{ $purchase->id }}</th>
-                                            <td>{{ $purchase->purchase_date }}</td>
+                                            <td>
+                                                {{ date('d-m-Y', strtotime($purchase->purchase_date)) }}
+                                            </td>
                                             <td>{{ $purchase->total }}</td>
                                             <td>
                                                 @if ($purchase->status == 'VALID' )

@@ -65,7 +65,7 @@
 	          					<th scope="row">{{ $sale->id }}</th>
 
 	          					<td>
-	          						{{ $sale->sale_date }}
+									{{ date('d-m-Y', strtotime($sale->sale_date)) }}
 	          					</td>
 
 	          					<td>
@@ -114,6 +114,6 @@
 	  </div>
 @endsection
 
-@section('script')
+@section('scripts')
 	{!! Html::script('melody/js/data-table.js') !!}
 @endsection
